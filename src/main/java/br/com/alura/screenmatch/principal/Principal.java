@@ -90,12 +90,10 @@ public class Principal {
         }
         temporadas.forEach(System.out::println);
     }
-//        prindando o series pesquisadas
+
     private void listarSeriesBuscada() {
-        List<Serie> series = new ArrayList<>();
-         series = dadosSeries.stream()
-                        .map(d-> new Serie(d))
-                                .collect(Collectors.toList());
+        // passsando a lista de intens pesquisados
+        List<Serie> series = repositorio.findAll();
      series.stream()
              .sorted(Comparator.comparing(Serie::getGenero))
              .forEach(System.out::println);
