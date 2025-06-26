@@ -33,12 +33,14 @@ public class Principal {
 
 
             var menu = """
-                    1 - Buscar séries
-                    2 - Buscar episódios
-                    3 - Listar Series Pesquisadas
+                    1 - Buscar séries.
+                    2 - Buscar episódios.
+                    3 - Listar Series Pesquisadas.
+                    4 - Buscar série por titulo.
+                    5 - Listar Série por categoria.
                     
                     
-                    0 - Sair                                 
+                    0 - Sair.                                 
                     """;
 
             System.out.println(menu);
@@ -55,7 +57,12 @@ public class Principal {
                 case 3:
                     listarSeriesBuscada();
                     break;
-
+                case 4:
+                    buscarSeriePorTitulo();
+                    break;
+                case 5:
+                    buscarSeriesPorCategoria();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -87,9 +94,7 @@ public class Principal {
         System.out.println("Escolha uma série para buscar:");
         var nomeSerie = leitura.nextLine();
 
-        Optional<Serie> serie = series.stream()
-                .filter(s -> s.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
-                .findFirst();
+        Optional<Serie> serie =  repositorio.findByTituloContainingIgnoreCase(nomeSerie);
 
         if (serie.isPresent()) {
 
@@ -122,5 +127,26 @@ public class Principal {
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
+    }
+    private void buscarSeriePorTitulo() {
+        System.out.println("Escolha uma série pelo nome :");
+        var nomeSerie = leitura.nextLine();
+        Optional<Serie> serieBuscada = repositorio.findByTituloContainingIgnoreCase(nomeSerie);
+
+        if (serieBuscada.isPresent()) {
+            System.out.println("Dados da série " + serieBuscada.get());
+
+        }else {
+            System.out.println("Série não econtrada.");
+        }
+    }
+
+    private void buscarSeriesPorCategoria() {
+        System.out.println("Deseja buscar séries de que categoria/gênero? ");
+        var nomeGenero = leitura.nextLine();
+        Categoria categoria = Categoria.fromPortugues(nomeGenero);
+        List<Serie> seriesPorCategoria = repositorio.findByGenero(categoria);
+        System.out.println("Séries da categoria " + nomeGenero);
+        seriesPorCategoria.forEach(System.out::println);
     }
 }
