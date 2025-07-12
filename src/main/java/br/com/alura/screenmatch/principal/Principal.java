@@ -40,6 +40,7 @@ public class Principal {
                     5 - Listar Série por Categoria.
                     6 - Filtrar Serie por Temporada.
                     7 - Buscar episodio por Trecho.
+                    8 - Top 5 Séries
                     
                     
                     0 - Sair.                                 
@@ -70,6 +71,9 @@ public class Principal {
                     break;
                 case 7:
                     buscarEpisodioPorTrecho();
+                    break;
+                case 8:
+                    buscarTop5Series();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -181,5 +185,11 @@ public class Principal {
                 System.out.printf("Série: %s Temporada %s - Episódio %s - %s\n",
                         e.getSerie().getTitulo(), e.getTemporada(),
                         e.getNumeroEpisodio(), e.getTitulo()));
+    }
+
+    private void buscarTop5Series() {
+        List<Serie> serieTop = repositorio.findTop5ByOrderByAvaliacaoDesc();
+        serieTop.forEach(s ->
+                System.out.println(s.getTitulo() + " avaliação: " + s.getAvaliacao()));
     }
 }

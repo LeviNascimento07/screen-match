@@ -111,6 +111,7 @@ public class Serie {
     }
 
     public void setPoster(String poster) {
+
         this.poster = poster;
     }
 
@@ -130,7 +131,7 @@ public class Serie {
                 ", avaliacao=" + avaliacao +
 
                 ", atores='" + atores + '\'' +
-                ", poster='" + poster + '\'' +
+                ", poster='" + poster  + '\'' +
                 ", sinopse='" + sinopse + '\'' +
                  ", episodio='" + episodios+ '\'';
     }
