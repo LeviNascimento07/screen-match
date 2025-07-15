@@ -5,4 +5,5 @@ public record EpisodioDTO(
         Integer numeroEpisodio,
         String titulo
 ) {
+
 }
